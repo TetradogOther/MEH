@@ -20,18 +20,23 @@ public class WildDataCache extends Thread implements Runnable
 	{
 		long pData = DataStore.WildPokemon;
 		int count = 0;
-		while(true)
+		WildDataHeader h ;
+		int num;
+		WildData d ;
+		bool continuar;
+		do
 		{
-			WildDataHeader h = new WildDataHeader(rom, (int)pData);
-			if(h.bBank == (byte)0xFF && h.bMap == (byte)0xFF)
-				break;
-			
-			WildData d = new WildData(rom,h);
+			h = new WildDataHeader(rom, (int)pData);
+			continuar=h.bBank == (byte)0xFF && h.bMap == (byte)0xFF;
+				
+			if(continuar){
+			d = new WildData(rom,h);
 			int num = (h.bBank & 0xFF) + ((h.bMap & 0xFF)<<8);
 			dataCache.put(num,d);
 			pData += (4 * 5);
 			count++;
-		}
+			}
+		}while(continuar);
 		initialNum = count;
 	}
 	

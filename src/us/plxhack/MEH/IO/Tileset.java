@@ -49,7 +49,7 @@ public class Tileset
 
 		if(tilesetHeader.bCompressed == 1)
 			uncompressedData = Lz77.decompressLZ77(rom, imageDataPtr);
-		if(uncompressedData == null)
+		else
 		{
 			GBARom backup = (GBARom) rom.clone(); //Backup in case repairs fail
 			rom.writeBytes((int)tilesetHeader.pGFX, (tilesetHeader.isPrimary ? globalTSLZHeader : localTSLZHeader)); //Attempt to repair the LZ77 data
@@ -105,7 +105,7 @@ public class Tileset
 		int y = ((tileNum) / (bi[time][0].getWidth() / 8)) * 8;
 		BufferedImage toSend =  image.getBufferedImageFromPal(palette).getSubimage(x, y, 8, 8);
 
-		if(!xFlip && !yFlip)
+		if(!xFlip && !yFlip)//no tiene sentido porque si no son false los dos entrara en un if y si lo son en el return ira lo mismo...
 			return toSend;
 		if(xFlip)
 			toSend = horizontalFlip(toSend);

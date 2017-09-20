@@ -43,7 +43,7 @@ public class WildPokemonData implements ISaveable, Cloneable
 				}
 
 			
-			for(int j = 0; j < (bDNEnabled > 0 ? 4 : 1); j++)
+			for(int j = 0,jf=(bDNEnabled > 0 ? 4 : 1); j <jf ; j++)
 			{
 				if(bDNEnabled == 0)
 					rom.Seek((int) pPokemonData);
